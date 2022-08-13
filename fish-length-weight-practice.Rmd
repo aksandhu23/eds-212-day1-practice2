@@ -1,0 +1,70 @@
+---
+title: "Fish Size"
+author: "Amritpal Sandhu"
+date: "2022-08-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+### Header 3
+
+## Header 2
+
+*Italics*
+
+**Bold**
+
+x^2^
+
+-   1
+-   2
+-   3
+
+```{r}
+# Write function for standard weight(g). Use ctrl, alt, x to make the function. 
+standard_weight <- function(a, fish_length, b) {
+  a * fish_length^b
+}
+
+# Milkfish: a = .0905, b = 2.52, fish length = 60 cm
+milkfish <- standard_weight(a = 0.0905, fish_length = 60, b = 2.52)
+
+# Giant trevally: a = 0.0353, b = 3.05, fish length = 60 cm
+trevally <- standard_weight(a = 0.0353, b = 3.05, fish_length = 60)
+
+trevally
+
+# Great barracuda: a = 0.0181, b = 3.27, fish length = 60
+barracuda <- standard_weight(a = 0.0181, b = 3.27, fish_length = 60)
+
+barracuda
+```
+
+```{r}
+# Store fish length as a sequence of ranges
+fish_length <- seq(from = 0, to = 200, by = 1)
+
+# Use the sequence to calculate barracuda weight
+barracuda_weight <- standard_weight(a = 0.0181, b = 3.27, fish_length = fish_length)
+
+barracuda_weight
+
+# Create data frame for barracuda weight and length
+barracuda_df <- data.frame(barracuda_weight, fish_length)
+
+barracuda_df
+```
+
+Create scatter plot
+
+```{r}
+ggplot(data = barracuda_df, aes(x = fish_length, y = barracuda_weight)) + geom_point(color = "blue") + labs(x = "Fish Length", y = "Fish Weight", title = "Barracuda Size") + theme(plot.title = element_text(hjust = .5))
+```
+
